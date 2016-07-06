@@ -16,6 +16,6 @@ This let's you route your company's GitHub notifications in a smart way.
 
 
 ```console
-$ bin/bootstrap
+$ bin/setup
 $ bin/cibuild
 ```
