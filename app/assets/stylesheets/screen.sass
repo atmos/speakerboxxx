@@ -1,0 +1,265 @@
+@import "compass/reset"
+@import "compass/css3"
+
+$base_font_size: 1.275em
+$base_line_height: 1.48571429em
+
+html
+  -webkit-text-size-adjust: none
+
+body
+  background: #313131
+  color: #b4b4b4
+  font:
+    family: 'Roboto Slab', serif
+    size: 100%
+
+a:link,
+a:visited
+  color: #b4b4b4
+  text-decoration: none
+
+a:hover,
+a:active
+  text-decoration: underline
+
+.wrapper
+  max-width: 960px
+  margin: 0 auto
+  padding: 0 10px
+
+header
+  -webkit-font-smoothing: antialiased
+  font-weight: normal
+  padding: 50px 0
+  text-align: center
+
+  h1
+    color: #fff
+    font-size: 3em
+    margin-bottom: 0.514285714em
+
+  h2
+    // color: #e3e3e3
+    font-size: 1.5625em
+    line-height: 1.2em
+
+section
+  svg
+    width: 120px
+    height: 120px
+    margin-bottom: .7em
+    fill: red
+
+  .screenshot
+    width: 100%
+    height: auto
+
+footer
+  padding: 30px 0
+  text-align: left
+  .links
+    border-top: 1px solid #6e6e6e
+    margin: 0 auto
+    padding: 18px 0
+
+    .privacy
+      float: right
+
+nav
+  text-align: center
+
+  li
+    display: inline-block
+    margin-right: 30px
+
+    a
+      color: rgb(230,230,230)
+      display: block
+      font:
+        size: 1.25em
+      text-decoration: none
+      width: 150px
+
+      span
+        display: block
+
+      .icon
+        height: 148px
+        margin-bottom: .75em
+
+      &:hover
+        color: #fff
+
+      &.selected
+        color: rgb(143, 191, 255)
+
+    &:last-child
+      margin-right: 0
+
+    &.heroku .icon
+      background: url("logo-heroku.svg")
+      background-size: 80%
+      background-position: center
+      background-repeat: no-repeat
+
+    &.heroku a:hover .icon
+    &.heroku a.selected .icon
+
+    &.slack .icon
+      background: url("logo-slack.svg")
+      background-size: 80%
+      background-position: center
+      background-repeat: no-repeat
+
+    &.slack a:hover .icon
+    &.slack a.selected .icon
+
+    &.github .icon
+      background: url("logo-github.svg")
+      background-size: 80%
+      background-position: center
+      background-repeat: no-repeat
+
+    &.github a:hover .icon
+    &.github a.selected .icon
+
+#instructions
+  margin: 0 auto
+  padding: 50px 0
+
+  ul
+    max-width: 780px
+    margin: 0 auto
+    position: relative
+
+    li
+      list-style: none
+      text-align: center
+
+  h3
+    font:
+      size: 1.25em
+    margin-bottom: 1.2em
+
+  p
+    font-size: $base_font_size
+    line-height: $base_line_height
+    margin-bottom: 1.71428571em
+
+    &:last-child
+      margin-bottom: 0
+
+    &.download
+      margin-bottom: 2.85714286em
+      text-align: center
+
+    &.download
+      *
+        @include border-radius(3px)
+        display: inline-block
+
+      a:link.button,
+      a:visited.button
+        background: #F24400
+        background-position: 1.71428571em center, 0 0
+        background-repeat: no-repeat
+        background-image: url("arrow.svg")
+        background-size: 11px 15px
+        border: none
+        @include box-shadow(0 1px 3px rgba(0,0,0,0.5),0 1px 2px rgba(255,255,255,0.25) inset)
+        color: #fff
+        -webkit-font-smoothing: antialiased
+        font-weight: bold
+        min-width: 5.71428571em
+        padding: .642857143em 1.71428571em .642857143em 3em
+        text-decoration: none
+
+      a:hover.button
+        background: #FF5809
+        background-position: 1.71428571em center, 0 0
+        background-repeat: no-repeat
+        background-image: url("arrow.svg")
+        background-size: 11px 15px
+
+      code
+        background: #111116
+        @include box-shadow(0 1px 0 rgba(255, 255, 255, .02), 0 1px 2px rgba(0, 0, 0, .25) inset)
+        color: #8487AF
+        text-align: center
+        width: 42.6923077em
+
+        span
+          padding: .642857143em 1.71428571em
+
+  ul
+    list-style: disc
+    margin-bottom: 1.71428571em
+    padding-left: 1.14285714em
+
+    &:last-child
+      margin-bottom: 0
+
+    li
+      font-size: $base_font_size
+      line-height: $base_line_height
+
+  pre
+    background: #111116
+    @include border-radius(3px)
+    @include box-shadow(0 1px 0 rgba(255, 255, 255, .02), 0 1px 2px rgba(0, 0, 0, .25) inset)
+    font-size: $base_font_size
+    line-height: $base_line_height
+    margin-bottom: 1.71428571em
+    overflow: auto
+    padding: 0.923076923em
+
+    &:last-child
+      margin-bottom: 0
+
+    .highlight
+      color: #9588FC
+
+  code
+    font:
+      family: monaco, monospace
+      size: .928571429em
+
+  p
+    code
+      color: #d4d4ff
+      font-weight: bold
+      letter-spacing: -0.09em
+
+
+
+  #instructions
+    padding: 30px 0
+
+    p.download code
+      overflow-x: auto
+      white-space: nowrap
+      width: 100%
+
+@media only screen and (max-device-width: 480px)
+  // Don't zoom in on the Heroku header drop-down
+  // The font-size needs to be at least 16px
+  select
+    font-size: 16px
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2)
+  #instructions
+    p.download a:link.button,
+    p.download a:visited.button,
+      // background-image: url("https://cloud.githubusercontent.com/assets/38/14138334/93712cd4-f621-11e5-8898-513ff219eb2d.png"), linear-gradient(top, #A1C22D,#89AC10)
+      background-size: 11px 15px, 100%
+
+.no-multiplebgs, .no-cssgradients
+  // Only show download glyph if:
+  //
+  // * We can't show multiple background images (IE7 & IE8)
+  // * We can't render CSS gradients (IE9)
+  #instructions p.download a:link.button,
+  #instructions p.download a:visited.button
+    background-image: url("https://cloud.githubusercontent.com/assets/38/14165183/f7584dba-f6ba-11e5-901d-e69c0c6679d0.png"), linear-gradient(top, #9372F7,#6443C9)
+    background-position: 1.71428571em center

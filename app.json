@@ -1,0 +1,51 @@
+{
+  "name": "speakerboxxx",
+  "description": "Something about this app",
+  "keywords": [],
+  "addons": [
+    "heroku-redis:premium-1",
+    "heroku-postgresql:premium-2"
+  ],
+  "env": {
+    "GITHUB_OAUTH_ID": {
+      "description": "The GitHub OAuth client id for being an OAuth consumer"
+    },
+    "GITHUB_OAUTH_SECRET": {
+      "description": "The GitHub OAuth client secret for being an OAuth consumer"
+    },
+    "RACK_ENV": {
+      "description": "The rack environment used to differentiate production from staging in rollbar",
+      "default": "production"
+    },
+    "RAILS_ENV": {
+      "description": "The rails environment used to differentiate production from staging in rollbar",
+      "default": "production"
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "description": "Whether or not rails should serve static assets from the ruby stack",
+      "default": "enabled"
+    },
+    "RBNACL_SECRET": {
+      "description": "The secret used for writing encrypted values to the database"
+    },
+    "ROLLBAR_ACCESS_TOKEN": {
+      "description": "Rollbar api token to submit errors"
+    },
+    "SECRET_KEY_BASE": {
+      "description": "The session secret used to encrypt and sign session cookies",
+      "generator": "secret"
+    },
+    "SLACK_APP_URL": {
+      "description": "The direct link to your app in the Slack App Store"
+    },
+    "SLACK_OAUTH_ID": {
+      "description": "The Slack OAuth client id for being an OAuth consumer"
+    },
+    "SLACK_OAUTH_SECRET": {
+      "description": "The Slack OAuth client secret for being an OAuth consumer"
+    },
+    "SLACK_SLASH_COMMAND_TOKEN": {
+      "description": "The token from slack to ensure it's a valid incoming request"
+    }
+  }
+}

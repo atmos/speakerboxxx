@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "url": "https://api.github.com/orgs/atmos-org/hooks/1",
+  "ping_url": "https://api.github.com/orgs/atmos-org/hooks/1/pings",
+  "name": "web",
+  "events": [
+    "*"
+  ],
+  "active": true,
+  "config": {
+    "url": "https://speakerboxxx-test.atmos.org/webhooks/T123YG08V/github/atmos-org",
+    "content_type": "json"
+  },
+  "updated_at": "2015-09-06T20:39:23Z",
+  "created_at": "2015-09-06T17:26:27Z"
+}

@@ -1,0 +1,18 @@
+services:
+  - postgresql
+  - redis-server
+language: ruby
+cache: bundler
+rvm:
+- 2.3.1
+bundler_args: "--without=development"
+env:
+  global:
+    - RBNACL_SECRET=xBPxUfoJRRXOfA9Zol1v6qNmXMjj/vJHG5OUpceXnwQ=
+before_script:
+- bin/setup
+script: bundle exec bin/cibuild
+notifications:
+  email: false
+addons:
+  postgresql: 9.4

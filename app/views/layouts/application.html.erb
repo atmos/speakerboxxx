@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Team focused GitHub Notifications in Slack</title>
+    <%= csrf_meta_tags %>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" >
+
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <%= yield %>
+      <footer>
+        <div class="links">
+          <a href="https://github.com/atmos-org">atmos-org</a>
+          <a class="privacy" href="https://github.com/atmos/slash-heroku/blob/master/PRIVACY.md">Privacy Policy</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

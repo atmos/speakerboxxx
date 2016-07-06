@@ -1,0 +1,27 @@
+#!/bin/sh
+
+if [ ! -f .node-version ]; then
+  echo "0.12.0" > .node-version
+fi
+
+if [ ! -f .env.test ]; then
+  cp .env.sample .env.test
+fi
+
+set -x
+git log -n 1 HEAD | cat
+node -v
+ruby -v
+bundle -v
+set +x
+set -e
+
+export RACK_ENV=test
+export RAILS_ENV=test
+
+
+bundle exec rake db:create
+bundle exec rake db:migrate
+bundle exec rake assets:precompile >/dev/null 2>&1
+bundle exec rspec spec
+bundle exec rubocop

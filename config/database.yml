@@ -1,0 +1,13 @@
+default: &default
+  adapter: postgresql
+  timeout: 5000
+
+development:
+  <<: *default
+  database: speakerboxxx_development
+test:
+  <<: *default
+  database: speakerboxxx_test
+production:
+  <<: *default
+  database: speakerboxxx_production
