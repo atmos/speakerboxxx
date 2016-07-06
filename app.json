@@ -1,10 +1,16 @@
 {
   "name": "speakerboxxx",
   "description": "Something about this app",
-  "keywords": [],
+  "keywords": [
+    "github",
+    "notifications",
+    "slack",
+    "slash command",
+    "chatops"
+  ],
   "addons": [
-    "heroku-redis:premium-1",
-    "heroku-postgresql:premium-2"
+    "heroku-redis:premium-0",
+    "heroku-postgresql:standard-0"
   ],
   "env": {
     "GITHUB_OAUTH_ID": {
