@@ -7,7 +7,7 @@ module GitHub::EventMessages
     end
 
     def repo_name
-      body["repository"]["name"]
+      nil
     end
 
     def full_name
