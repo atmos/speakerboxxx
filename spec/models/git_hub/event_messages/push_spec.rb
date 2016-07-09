@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe GitHub::EventMessages::Push, type: :model do
   it "creates a push Slack Message" do
-    data = fixture_data("webhooks/push-1-commit")
+    data = decoded_fixture_data("webhooks/push-1-commit")
 
     handler = GitHub::EventMessages::Push.new(data)
 
@@ -19,7 +19,7 @@ RSpec.describe GitHub::EventMessages::Push, type: :model do
   end
 
   it "uses plural form when multiple commits" do
-    data = fixture_data("webhooks/push-2-commits")
+    data = decoded_fixture_data("webhooks/push-2-commits")
 
     handler = GitHub::EventMessages::Push.new(data)
 

@@ -6,7 +6,7 @@ RSpec.describe GitHub::EventMessages::PullRequest, type: :model do
   let(:team) { SlackHQ::Team.from_omniauth(slack_omniauth_hash_for_atmos) }
 
   it "returns a Slack message for pull request opened" do
-    data = fixture_data("webhooks/pull_request-opened")
+    data = decoded_fixture_data("webhooks/pull_request-opened")
 
     handler = GitHub::EventMessages::PullRequest.new(data)
     response = handler.response
@@ -25,7 +25,7 @@ RSpec.describe GitHub::EventMessages::PullRequest, type: :model do
   end
 
   it "returns the right Slack message when pull request merged" do
-    data = fixture_data("webhooks/pull_request-merged")
+    data = decoded_fixture_data("webhooks/pull_request-merged")
 
     handler = GitHub::EventMessages::PullRequest.new(data)
     response = handler.response
