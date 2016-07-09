@@ -2,16 +2,13 @@ require "rails_helper"
 
 # rubocop:disable Metrics/LineLength
 RSpec.describe GitHub::EventMessages::DeploymentStatus, type: :model do
-  let(:org) { team.organizations.create(name: "heroku", webhook_id: 42) }
-  let(:team) { SlackHQ::Team.from_omniauth(slack_omniauth_hash_for_atmos) }
-
   it "returns a started message the state is pending" do
     data = fixture_data("webhooks/deployment_status-pending")
 
-    handler = GitHub::EventMessages::DeploymentStatus.new(team, org, data)
+    handler = GitHub::EventMessages::DeploymentStatus.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     attachments = response[:attachments]
     expect(attachments.first[:color]).to eql("#c0c0c0")
     expect(attachments.first[:text])
@@ -23,10 +20,10 @@ RSpec.describe GitHub::EventMessages::DeploymentStatus, type: :model do
   it "returns a Slack message if the state is success" do
     data = fixture_data("webhooks/deployment_status-success")
 
-    handler = GitHub::EventMessages::DeploymentStatus.new(team, org, data)
+    handler = GitHub::EventMessages::DeploymentStatus.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     attachments = response[:attachments]
     expect(attachments.first[:color]).to eql("#36a64f")
     expect(attachments.first[:text])
@@ -38,10 +35,10 @@ RSpec.describe GitHub::EventMessages::DeploymentStatus, type: :model do
   it "returns a Slack message if the status is failure" do
     data = fixture_data("webhooks/deployment_status-failure")
 
-    handler = GitHub::EventMessages::DeploymentStatus.new(team, org, data)
+    handler = GitHub::EventMessages::DeploymentStatus.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     attachments = response[:attachments]
     expect(attachments.first[:color]).to eql("#f00")
     expect(attachments.first[:text])
@@ -53,10 +50,10 @@ RSpec.describe GitHub::EventMessages::DeploymentStatus, type: :model do
   it "returns a Slack message if they deployed ref is a full sha" do
     data = fixture_data("webhooks/deployment_status-full-ref")
 
-    handler = GitHub::EventMessages::DeploymentStatus.new(team, org, data)
+    handler = GitHub::EventMessages::DeploymentStatus.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     attachments = response[:attachments]
     expect(attachments.first[:color]).to eql("#f00")
     expect(attachments.first[:text])

@@ -1,23 +1,20 @@
 require "rails_helper"
 
 RSpec.describe GitHub::EventMessages::Status, type: :model do
-  let(:org) { team.organizations.create(name: "heroku", webhook_id: 42) }
-  let(:team) { SlackHQ::Team.from_omniauth(slack_omniauth_hash_for_atmos) }
-
   it "returns nil if the status is pending" do
     data = fixture_data("webhooks/status-travis-pending")
 
-    handler = GitHub::EventMessages::Status.new(team, org, data)
+    handler = GitHub::EventMessages::Status.new(data)
     expect(handler.response).to be_nil
   end
 
   it "returns a Slack message for travis if the status is success" do
     data = fixture_data("webhooks/status-travis-success")
 
-    handler = GitHub::EventMessages::Status.new(team, org, data)
+    handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     expect(response[:text]).to be_nil
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
@@ -35,10 +32,10 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   it "returns a Slack message for travis if the status is failure" do
     data = fixture_data("webhooks/status-travis-failure")
 
-    handler = GitHub::EventMessages::Status.new(team, org, data)
+    handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
     expect(attachments.first[:color]).to eql("#f00")
@@ -55,10 +52,10 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   it "returns a Slack message for circleci if the status is success" do
     data = fixture_data("webhooks/status-circle-success")
 
-    handler = GitHub::EventMessages::Status.new(team, org, data)
+    handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
 
     expect(response[:text]).to be_nil
     attachments = response[:attachments]
@@ -77,10 +74,10 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   it "returns a Slack message for circle if the status is failure" do
     data = fixture_data("webhooks/status-circle-failure")
 
-    handler = GitHub::EventMessages::Status.new(team, org, data)
+    handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     expect(response[:text]).to be_nil
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
@@ -98,10 +95,10 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   it "returns a Slack message for changeling if the status is successful" do
     data = fixture_data("webhooks/status-changeling-success")
 
-    handler = GitHub::EventMessages::Status.new(team, org, data)
+    handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     expect(response[:text]).to be_nil
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
@@ -119,10 +116,10 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   it "returns a Slack message for fork repos without branch references" do
     data = fixture_data("webhooks/status-changeling-success-fork")
 
-    handler = GitHub::EventMessages::Status.new(team, org, data)
+    handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     expect(response[:text]).to be_nil
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil

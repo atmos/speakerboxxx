@@ -10,10 +10,10 @@ RSpec.describe GitHub::EventMessages::Ping, type: :model do
 
     data = fixture_data("webhooks/ping")
 
-    handler = GitHub::EventMessages::Ping.new(team, org, data)
+    handler = GitHub::EventMessages::Ping.new(data)
 
     response = handler.response
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     expect(response[:text]).to be_nil
 
     attachments = response[:attachments]

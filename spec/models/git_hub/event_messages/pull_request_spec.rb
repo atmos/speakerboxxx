@@ -8,10 +8,10 @@ RSpec.describe GitHub::EventMessages::PullRequest, type: :model do
   it "returns a Slack message for pull request opened" do
     data = fixture_data("webhooks/pull_request-opened")
 
-    handler = GitHub::EventMessages::PullRequest.new(team, org, data)
+    handler = GitHub::EventMessages::PullRequest.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     expect(response[:text])
       .to eql("[atmos-org/speakerboxxx] Pull request opened by <https://github.com/atmos|atmos>")
     attachments = response[:attachments]
@@ -27,10 +27,10 @@ RSpec.describe GitHub::EventMessages::PullRequest, type: :model do
   it "returns the right Slack message when pull request merged" do
     data = fixture_data("webhooks/pull_request-merged")
 
-    handler = GitHub::EventMessages::PullRequest.new(team, org, data)
+    handler = GitHub::EventMessages::PullRequest.new(data)
     response = handler.response
     expect(response).to_not be_nil
-    expect(response[:channel]).to eql("#general")
+    expect(response[:channel]).to eql("#notifications")
     expect(response[:text])
       .to eql("[atmos-org/speakerboxxx] Pull request merged by <https://github.com/atmos|atmos>")
     attachments = response[:attachments]

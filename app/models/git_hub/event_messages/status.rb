@@ -1,10 +1,8 @@
 module GitHub::EventMessages
   # Class to generate Slack Messages based on a GitHub Status Webhook
   class Status
-    attr_accessor :body, :org, :team
-    def initialize(team, org, body)
-      @org  = org
-      @team = team
+    attr_accessor :body
+    def initialize(body)
       @body = JSON.parse(body)
     end
 
@@ -125,7 +123,7 @@ module GitHub::EventMessages
       return if body["state"] == "pending"
       return if suppressed_contexts.include?(body["context"])
       {
-        channel: org.default_room_for(repo_name),
+        channel: "#notifications",
         attachments: [
           {
             fallback: "#{full_name} build of #{branch} was #{state_description}", # rubocop:disable Metrics/LineLength
