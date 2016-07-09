@@ -6,18 +6,6 @@ module GitHub::EventMessages
        team_add watch}
   end
 
-  def self.process_event(team, org, type, body)
-    handler = handler_for(type, body)
-    return unless handler && handler.response
-
-    response = handler.response
-    if response.full_name
-      response[:channel] = org.default_room_for(handler.repo_name)
-    end
-
-    team.bot.chat_postMessage(response)
-  end
-
   # rubocop:disable Metrics/CyclomaticComplexity
   def self.handler_for(event_type, body)
     case event_type

@@ -24,7 +24,7 @@ class GitHub::Organization < ApplicationRecord
   end
 
   def default_room_for(name)
-    return "#general" if name.blank?
+    return default_room if name.blank?
     repo = repositories.find { |r| r.name == name }
     if repo
       repo.default_room
