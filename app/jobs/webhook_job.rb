@@ -23,7 +23,8 @@ class WebhookJob < ApplicationJob
     handler = GitHub::EventMessages.handler_for(event_type, body)
     if handler && handler.response
       response = handler.response
-      if response.full_name
+      Rails.logger.info "Searching for #{response.repo_name}"
+      if response.repo_name
         response[:channel] = org.default_room_for(handler.repo_name)
       end
 
