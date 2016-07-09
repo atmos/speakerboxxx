@@ -8,7 +8,7 @@ RSpec.describe GitHub::EventMessages::Ping, type: :model do
     org = team.organizations.create(name: "heroku", webhook_id: 42)
     expect(org).to be_valid
 
-    data = fixture_data("webhooks/ping")
+    data = decoded_fixture_data("webhooks/ping")
 
     handler = GitHub::EventMessages::Ping.new(data)
 

@@ -3,7 +3,7 @@ require "rails_helper"
 # rubocop:disable Metrics/LineLength
 RSpec.describe GitHub::EventMessages::DeploymentStatus, type: :model do
   it "returns a started message the state is pending" do
-    data = fixture_data("webhooks/deployment_status-pending")
+    data = decoded_fixture_data("webhooks/deployment_status-pending")
 
     handler = GitHub::EventMessages::DeploymentStatus.new(data)
     response = handler.response
@@ -18,7 +18,7 @@ RSpec.describe GitHub::EventMessages::DeploymentStatus, type: :model do
   end
 
   it "returns a Slack message if the state is success" do
-    data = fixture_data("webhooks/deployment_status-success")
+    data = decoded_fixture_data("webhooks/deployment_status-success")
 
     handler = GitHub::EventMessages::DeploymentStatus.new(data)
     response = handler.response
@@ -33,7 +33,7 @@ RSpec.describe GitHub::EventMessages::DeploymentStatus, type: :model do
   end
 
   it "returns a Slack message if the status is failure" do
-    data = fixture_data("webhooks/deployment_status-failure")
+    data = decoded_fixture_data("webhooks/deployment_status-failure")
 
     handler = GitHub::EventMessages::DeploymentStatus.new(data)
     response = handler.response
@@ -48,7 +48,7 @@ RSpec.describe GitHub::EventMessages::DeploymentStatus, type: :model do
   end
 
   it "returns a Slack message if they deployed ref is a full sha" do
-    data = fixture_data("webhooks/deployment_status-full-ref")
+    data = decoded_fixture_data("webhooks/deployment_status-full-ref")
 
     handler = GitHub::EventMessages::DeploymentStatus.new(data)
     response = handler.response

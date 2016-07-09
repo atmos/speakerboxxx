@@ -3,7 +3,7 @@ require "rails_helper"
 # rubocop:disable Metrics/LineLength
 RSpec.describe GitHub::EventMessages::Delete, type: :model do
   it "creates a push Slack Message" do
-    data = fixture_data("webhooks/delete")
+    data = decoded_fixture_data("webhooks/delete")
 
     handler = GitHub::EventMessages::Delete.new(data)
 

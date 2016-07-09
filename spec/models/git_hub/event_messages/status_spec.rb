@@ -2,14 +2,14 @@ require "rails_helper"
 
 RSpec.describe GitHub::EventMessages::Status, type: :model do
   it "returns nil if the status is pending" do
-    data = fixture_data("webhooks/status-travis-pending")
+    data = decoded_fixture_data("webhooks/status-travis-pending")
 
     handler = GitHub::EventMessages::Status.new(data)
     expect(handler.response).to be_nil
   end
 
   it "returns a Slack message for travis if the status is success" do
-    data = fixture_data("webhooks/status-travis-success")
+    data = decoded_fixture_data("webhooks/status-travis-success")
 
     handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
@@ -30,7 +30,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   end
 
   it "returns a Slack message for travis if the status is failure" do
-    data = fixture_data("webhooks/status-travis-failure")
+    data = decoded_fixture_data("webhooks/status-travis-failure")
 
     handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
@@ -50,7 +50,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   end
 
   it "returns a Slack message for circleci if the status is success" do
-    data = fixture_data("webhooks/status-circle-success")
+    data = decoded_fixture_data("webhooks/status-circle-success")
 
     handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
@@ -72,7 +72,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   end
 
   it "returns a Slack message for circle if the status is failure" do
-    data = fixture_data("webhooks/status-circle-failure")
+    data = decoded_fixture_data("webhooks/status-circle-failure")
 
     handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
@@ -93,7 +93,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   end
 
   it "returns a Slack message for changeling if the status is successful" do
-    data = fixture_data("webhooks/status-changeling-success")
+    data = decoded_fixture_data("webhooks/status-changeling-success")
 
     handler = GitHub::EventMessages::Status.new(data)
     response = handler.response
@@ -114,7 +114,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
   end
 
   it "returns a Slack message for fork repos without branch references" do
-    data = fixture_data("webhooks/status-changeling-success-fork")
+    data = decoded_fixture_data("webhooks/status-changeling-success-fork")
 
     handler = GitHub::EventMessages::Status.new(data)
     response = handler.response

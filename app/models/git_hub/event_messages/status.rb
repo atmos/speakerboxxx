@@ -3,7 +3,7 @@ module GitHub::EventMessages
   class Status
     attr_accessor :body
     def initialize(body)
-      @body = JSON.parse(body)
+      @body = body
     end
 
     def repo_name
@@ -60,6 +60,8 @@ module GitHub::EventMessages
 
     def actor
       commit["committer"]["login"]
+    rescue StandardError
+      "Unknown"
     end
 
     def commit
