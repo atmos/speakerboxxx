@@ -3,7 +3,7 @@ module GitHub::EventMessages
   class Unknown
     attr_accessor :body, :event_type
     def initialize(body, event_type)
-      @body       = JSON.parse(body)
+      @body       = body
       @event_type = event_type
     end
 

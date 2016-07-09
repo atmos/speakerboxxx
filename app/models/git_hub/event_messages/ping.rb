@@ -3,7 +3,7 @@ module GitHub::EventMessages
   class Ping
     attr_accessor :body
     def initialize(body)
-      @body = JSON.parse(body)
+      @body = body
     end
 
     def repo_name

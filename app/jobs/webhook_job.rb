@@ -20,7 +20,7 @@ class WebhookJob < ApplicationJob
       end
     end
 
-    handler = GitHub::EventMessages.handler_for(event_type, body)
+    handler = GitHub::EventMessages.handler_for(event_type, JSON.load(body))
     if handler && handler.response
       response = handler.response
       response[:channel] = org.default_room_for(handler.repo_name)
