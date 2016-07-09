@@ -1,10 +1,8 @@
 module GitHub::EventMessages
   # Class to generate Slack Messages based on a GitHub Push Webhook
   class Push
-    attr_accessor :body, :org, :team
-    def initialize(team, org, body)
-      @org  = org
-      @team = team
+    attr_accessor :body
+    def initialize(body)
       @body = JSON.parse(body)
     end
 
@@ -61,7 +59,7 @@ module GitHub::EventMessages
       return if commits.empty?
       return if short_sha == "00000000"
       {
-        channel: org.default_room_for(repo_name),
+        channel: "#notifications",
         text: title,
         attachments: [
           {

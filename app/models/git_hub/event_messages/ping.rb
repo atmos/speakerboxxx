@@ -1,10 +1,8 @@
 module GitHub::EventMessages
   # Class to generate Slack Messages based on a GitHub Ping Webhook
   class Ping
-    attr_accessor :body, :org, :team
-    def initialize(team, org, body)
-      @org  = org
-      @team = team
+    attr_accessor :body
+    def initialize(body)
       @body = JSON.parse(body)
     end
 
@@ -47,7 +45,7 @@ module GitHub::EventMessages
     # rubocop:disable Metrics/MethodLength
     def response
       {
-        channel: org.default_room,
+        channel: "#notifications",
         attachments: [
           {
             color: "#4785c0",

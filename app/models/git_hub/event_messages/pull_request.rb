@@ -1,10 +1,8 @@
 module GitHub::EventMessages
   # Class to generate Slack Messages based on a GitHub PullRequest Webhook
   class PullRequest
-    attr_accessor :body, :org, :team
-    def initialize(team, org, body)
-      @org  = org
-      @team = team
+    attr_accessor :body
+    def initialize(body)
       @body = JSON.parse(body)
     end
 
@@ -95,7 +93,7 @@ module GitHub::EventMessages
     def response
       return if suppressed_actions.include?(action)
       {
-        channel: org.default_room_for(repo_name),
+        channel: "#notifications",
         text: title,
         attachments: [
           {
