@@ -13,8 +13,14 @@ class SessionsController < ApplicationController
     redirect_to "/auth/slack?origin=#{omniauth_origin}"
   end
 
+  def redis
+    @redis ||= Redis.new
+  end
+
   def create_slack
     team = SlackHQ::Team.from_omniauth(omniauth_info)
+
+    redis.set "omniauth-info", omniauth_info.to_json
 
     user = team.users.find_or_initialize_by(
       slack_user_id: omniauth_info_user_id
