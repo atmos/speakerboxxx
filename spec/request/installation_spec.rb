@@ -24,6 +24,6 @@ RSpec.describe "Speakerboxxx GET /install", type: :request do
     uri = Addressable::URI.parse(headers["Location"])
     expect(uri.host).to eql("slack.com")
     expect(uri.path).to eql("/oauth/authorize")
-    expect(uri.query_values["scope"]).to eql("identity.basic")
+    expect(uri.query_values["scope"]).to eql("identity.basic,users:read")
   end
 end
