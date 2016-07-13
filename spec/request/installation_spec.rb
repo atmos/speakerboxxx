@@ -17,7 +17,7 @@ RSpec.describe "Speakerboxxx GET /install", type: :request do
     expect(uri.path).to eql("/oauth/authorize")
     expect(uri.query_values["scope"]).to eql("identify,commands,bot")
   end
-  
+
   it "sends you to slack with appropriate scopes requested to authenticate" do
     get "/auth/slack"
     expect(status).to eql(302)
