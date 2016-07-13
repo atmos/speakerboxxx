@@ -19,6 +19,9 @@
     "GITHUB_OAUTH_SECRET": {
       "description": "The GitHub OAuth client secret for being an OAuth consumer"
     },
+    "HOSTNAME": {
+      "description": "The FQDN that the server is running at"
+    },
     "RACK_ENV": {
       "description": "The rack environment used to differentiate production from staging in rollbar",
       "default": "production"
