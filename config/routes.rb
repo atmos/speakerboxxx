@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get  "/auth/failure",                to: "sessions#destroy"
   get  "/auth/github/callback",        to: "sessions#create_github"
   get  "/auth/slack/callback",         to: "sessions#create_slack"
-  get  "/auth/slack_install/callback", to: "sessions#create_slack"
+  get  "/auth/slack_install/callback", to: "sessions#install_slack"
 
   post "/signout",  to: "sessions#destroy"
 
