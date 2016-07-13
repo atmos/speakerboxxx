@@ -40,6 +40,9 @@ module OmniAuthHelpers
       token: SecureRandom.hex(24)
     }
     extra = {
+      raw_info: {
+        ok: true
+      },
       bot_info: {
         bot_access_token: "xoxo-hugs-n-kisses",
         bot_user_id: "U421FY7"
@@ -51,6 +54,44 @@ module OmniAuthHelpers
                            info: info,
                            extra: extra,
                            credentials: credentials)
+  end
+
+  def slack_omniauth_hash_for_toolskai
+    info = {
+      provider: "slack",
+      uid: nil,
+      info: {
+      },
+      credentials: {
+        token: "xoxp-9101111159-5657146422-59735495733-3186a13efg",
+        expires: false
+      },
+      extra: {
+        raw_info: {
+          ok: false,
+          error: "missing_scope",
+          needed: "identify",
+          provided: "identity.basic"
+        },
+        web_hook_info: {
+        },
+        bot_info: {
+        },
+        user_info: {
+          ok: false,
+          error: "missing_scope",
+          needed: "users:read",
+          provided: "identity.basic"
+        },
+        team_info: {
+          ok: false,
+          error: "missing_scope",
+          needed: "team:read",
+          provided: "identity.basic"
+        }
+      }
+    }
+    OmniAuth::AuthHash.new(info)
   end
   # rubocop:enable Metrics/MethodLength
 

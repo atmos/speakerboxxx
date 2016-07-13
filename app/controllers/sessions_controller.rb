@@ -14,6 +14,13 @@ class SessionsController < ApplicationController
   end
 
   def create_slack
+    user = SlackHQ::User.from_omniauth(omniauth_info)
+
+    session[:user_id] = user.id
+    redirect_to "/auth/github"
+  end
+
+  def install_slack
     team = SlackHQ::Team.from_omniauth(omniauth_info)
 
     user = team.users.find_or_initialize_by(
