@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def install
-    redirect_to "/auth/slack?scope=identify,commands,bot"
+    redirect_to "/auth/slack_install"
   end
 
   private
