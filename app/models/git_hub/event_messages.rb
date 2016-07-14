@@ -9,6 +9,8 @@ module GitHub::EventMessages
   # rubocop:disable Metrics/CyclomaticComplexity
   def self.handler_for(event_type, body)
     case event_type
+    when "create"
+      GitHub::EventMessages::Create.new(body)
     when "delete"
       GitHub::EventMessages::Delete.new(body)
     when "ping"
