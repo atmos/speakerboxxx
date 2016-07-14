@@ -1,7 +1,7 @@
 # Container module for GitHub webhook events
 module GitHub::EventMessages
   def self.suppressed_actions
-    %w{commit_comment create deployment fork issues issue_comment \
+    %w{commit_comment deployment fork issues issue_comment \
        member membership pull_request_review_comment release repository \
        team_add watch}
   end
@@ -9,6 +9,8 @@ module GitHub::EventMessages
   # rubocop:disable Metrics/CyclomaticComplexity
   def self.handler_for(event_type, body)
     case event_type
+    when "create"
+      GitHub::EventMessages::Create.new(body)
     when "delete"
       GitHub::EventMessages::Delete.new(body)
     when "ping"
