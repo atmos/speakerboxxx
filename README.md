@@ -10,7 +10,7 @@ This let's you route your company's GitHub notifications in a smart way.
 
 ### Chat Enabling and Routing
 
-![](https://cloud.githubusercontent.com/assets/38/16897583/88b45282-4b6a-11e6-9e3a-6a09d8ea69e0.png)
+![](https://cloud.githubusercontent.com/assets/38/16897654/85ab2bc2-4b6c-11e6-8834-20f3fb8cef56.png)
 
 ## Testing
 
