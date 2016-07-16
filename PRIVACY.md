@@ -1,4 +1,4 @@
-# Privacy Policy for Heroku ChatOps for Slack
+# Privacy Policy for GitHub Notifications for Slack
 
 This privacy policy governs your use of the software application Heroku ChatOps for Slack (“Application”) for Slack clients, web browsers, and mobile devices that was created by atmos.org. The Application is a Slack integration to assist in deploying code from GitHub to the Heroku platform.
 
