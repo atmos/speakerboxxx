@@ -10,7 +10,7 @@ module OrganizationHelpers
   end
 
   def organization_name_pattern
-    /org(?:\:[^\s]+)? (.*)\s*/
+    /org(?:\:[^\s]+)? ([^\s]+)\s*([^\s]+)?\s*/
   end
 
   def github_api
@@ -20,6 +20,10 @@ module OrganizationHelpers
   def organization_name
     @organization_name ||=
       command.command_text.match(organization_name_pattern)[1]
+  end
+
+  def channel_name
+    @channel_name ||= command.command_text.match(organization_name_pattern)[2]
   end
 
   def organization

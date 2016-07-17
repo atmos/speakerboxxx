@@ -26,7 +26,7 @@ RSpec.describe Commands::Organization, type: :model do
 
     expect(handler.org_hooks?).to be true
     response = {
-      text: "atmos-org is good to go :+1:.",
+      text: "atmos-org is good to go. Defaulting to #general",
       response_type: "in_channel"
     }
     expect(handler.response).to eql(response)
@@ -74,7 +74,7 @@ RSpec.describe Commands::Organization, type: :model do
     handler.run
 
     response = {
-      text: "atmos-org webhooks are enabled. <|View>",
+      text: "atmos-org webhooks are enabled. Defaulting to #general <|View>",
       response_type: "in_channel"
     }
     expect(handler.response).to eql(response)
@@ -100,6 +100,31 @@ RSpec.describe Commands::Organization, type: :model do
 
     response = {
       text: "atmos-org webhooks are disabled.",
+      response_type: "in_channel"
+    }
+    expect(handler.response).to eql(response)
+  end
+
+  it "org:enable responds with a message saying it successfully configured" do
+    stub_json_request(:get, "https://api.github.com/orgs/atmos-org",
+                      github_fixture_data("orgs/atmos-org/index"))
+    stub_json_request(:get, "https://api.github.com/orgs/atmos-org/hooks",
+                      github_fixture_data("orgs/atmos-org/hooks/empty"))
+
+    stub_json_request(:post, "https://api.github.com/orgs/atmos-org/hooks",
+                      github_fixture_data("orgs/atmos-org/hooks/create"))
+
+    command_params = command_params_for("org:enable atmos-org #spam")
+    command = user.create_command_for(command_params)
+
+    handler = command.handler
+    expect(handler.organization_name).to eql("atmos-org")
+    expect(handler.organization_webhook_url).to eql(webhook_url)
+
+    handler.run
+
+    response = {
+      text: "atmos-org webhooks are enabled. Defaulting to #spam <|View>",
       response_type: "in_channel"
     }
     expect(handler.response).to eql(response)

@@ -10,8 +10,9 @@ module Commands
     def self.help_documentation
       [
         "org:info heroku - Get information about a GitHub organization",
-        "org:enable heroku - Enable the heroku organization's webhooks",
-        "org:disble heroku - Disable the heroku organization's webhooks"
+        "org:enable heroku #my-default-channel - " \
+        "Enable the heroku organization's webhooks",
+        "org:disable heroku - Disable the heroku organization's webhooks"
       ]
     end
 
@@ -24,6 +25,8 @@ module Commands
           enable_subtask
         when "disable"
           disable_subtask
+        when "default"
+          default_subtask
         else
           @response = help_for_task
         end
@@ -38,17 +41,21 @@ module Commands
     end
 
     def enable_subtask
-      if org_hooks?
-        @response = response_for("#{organization_name} is already enabled.")
-      else
+      unless channel_name.blank?
+        github_organization.default_room = channel_name
+        github_organization.save
+      end
+
+      unless org_hooks?
         create_organization_hook(github_organization.webhook_secret)
         @organization_hooks = nil
-
-        @response = response_for(
-          "#{organization_name} webhooks are enabled. " \
-          "<#{organization_webhook_view_url}|View>"
-        )
       end
+
+      @response = response_for(
+        "#{organization_name} webhooks are enabled. Defaulting to " \
+          "#{github_organization.default_room} " \
+          "<#{organization_webhook_view_url}|View>"
+      )
     end
 
     def disable_subtask
@@ -71,7 +78,10 @@ module Commands
 
     def info_subtask
       if org_hooks?
-        @response = response_for("#{organization_name} is good to go :+1:.")
+        @response = response_for(
+          "#{organization_name} is good to go. " \
+            "Defaulting to #{github_organization.default_room}"
+        )
       else
         @response = response_for("#{organization_name} isn't configured.")
       end
