@@ -7,6 +7,8 @@ class WebhookJob < ApplicationJob
     team_id = args.first.fetch(:team_id)
     team = SlackHQ::Team.find_by(team_id: team_id)
 
+    return if team.nil?
+
     org_name = args.first.fetch(:org_name)
     org = team.organizations.find_by(name: org_name)
 
