@@ -119,6 +119,7 @@ RSpec.describe Commands::Organization, type: :model do
 
     handler = command.handler
     expect(handler.organization_name).to eql("atmos-org")
+    expect(handler.channel_name).to eql("#spam")
     expect(handler.organization_webhook_url).to eql(webhook_url)
 
     handler.run

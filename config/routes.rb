@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   post "/webhooks/:team_id/github/:org_name", to: "webhooks#create"
 
+  post "/buttons",  to: "buttons#create"
   post "/commands", to: "commands#create"
 
   root to: "pages#index"
