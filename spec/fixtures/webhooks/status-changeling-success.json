@@ -89,10 +89,10 @@
   "updated_at": "2016-07-01T18:59:23Z",
   "repository": {
     "id": 3287486,
-    "name": "api",
+    "name": "speakerboxxx",
     "full_name": "atmos-org/speakerboxxx",
     "owner": {
-      "login": "heroku",
+      "login": "atmos-org",
       "id": 23211,
       "avatar_url": "https://avatars.githubusercontent.com/u/23211?v=3",
       "gravatar_id": "",
