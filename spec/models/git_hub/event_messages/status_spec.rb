@@ -19,7 +19,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
     expect(attachments.first[:color]).to eql("#36a64f")
-    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|atmos-org/speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/master|master@7dcf6ad3> was successful. <https://travis-ci.com/atmos-org/speakerboxxx/builds/26768873|Details>") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/master|master@7dcf6ad3> was successful. <https://travis-ci.com/atmos-org/speakerboxxx/builds/26768873|Details>") # rubocop:disable Metrics/LineLength
 
     fields = attachments.first[:fields]
     expect(fields).to be_nil
@@ -39,7 +39,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
     expect(attachments.first[:color]).to eql("#f00")
-    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|atmos-org/speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/add-pull-requests|add-pull-requests@89bfabcc> failed. <https://travis-ci.com/atmos-org/speakerboxxx/builds/26834904|Details>") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/add-pull-requests|add-pull-requests@89bfabcc> failed. <https://travis-ci.com/atmos-org/speakerboxxx/builds/26834904|Details>") # rubocop:disable Metrics/LineLength
 
     fields = attachments.first[:fields]
     expect(fields).to be_nil
@@ -61,7 +61,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
     expect(attachments.first[:color]).to eql("#36a64f")
-    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|atmos-org/speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/master|master@a2df354c> was successful. <https://circleci.com/gh/atmos-org/speakerboxxx/1|Details>") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/master|master@a2df354c> was successful. <https://circleci.com/gh/atmos-org/speakerboxxx/1|Details>") # rubocop:disable Metrics/LineLength
 
     fields = attachments.first[:fields]
     expect(fields).to be_nil
@@ -82,7 +82,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
     expect(attachments.first[:color]).to eql("#f00")
-    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|atmos-org/speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/master|master@a2df354c> failed. <https://circleci.com/gh/atmos-org/speakerboxxx/1|Details>") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/master|master@a2df354c> failed. <https://circleci.com/gh/atmos-org/speakerboxxx/1|Details>") # rubocop:disable Metrics/LineLength
 
     fields = attachments.first[:fields]
     expect(fields).to be_nil
@@ -103,7 +103,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
     expect(attachments.first[:color]).to eql("#36a64f")
-    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|atmos-org/speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/endpoint-events|endpoint-events@46afb288> was successful. <https://changeling.heroku.tools/multipasses/4689e051-468a-4c09-8cdc-2958e1558f01|Details>") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/endpoint-events|endpoint-events@46afb288> was successful. <https://changeling.heroku.tools/multipasses/4689e051-468a-4c09-8cdc-2958e1558f01|Details>") # rubocop:disable Metrics/LineLength
 
     fields = attachments.first[:fields]
     expect(fields).to be_nil
@@ -124,7 +124,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     attachments = response[:attachments]
     expect(attachments.first[:fallback]).to_not be_nil
     expect(attachments.first[:color]).to eql("#36a64f")
-    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|atmos-org/speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/46afb288|46afb288> was successful. <https://changeling.heroku.tools/multipasses/4689e051-468a-4c09-8cdc-2958e1558f01|Details>") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/46afb288|46afb288> was successful. <https://changeling.heroku.tools/multipasses/4689e051-468a-4c09-8cdc-2958e1558f01|Details>") # rubocop:disable Metrics/LineLength
 
     fields = attachments.first[:fields]
     expect(fields).to be_nil
