@@ -3,6 +3,9 @@ class WebhookJob < ApplicationJob
   queue_as :default
 
   # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def perform(*args)
     team_id = args.first.fetch(:team_id)
     team = SlackHQ::Team.find_by(team_id: team_id)
@@ -25,10 +28,22 @@ class WebhookJob < ApplicationJob
     handler = GitHub::EventMessages.handler_for(event_type, JSON.load(body))
     if handler && handler.response
       response = handler.response
-      response[:channel] = org.default_room_for(handler.repo_name)
+      channel  = org.default_room_for(handler.repo_name)
 
+      response[:channel] = channel
       team.bot.chat_postMessage(response)
+
+      if event_type == "deployment_status" && handler.chat_deployment?
+        chat_channel = handler.chat_deployment_room
+        if chat_channel != channel
+          response[:channel] = "##{chat_channel}"
+          team.bot.chat_postMessage(response)
+        end
+      end
     end
   end
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
 end
