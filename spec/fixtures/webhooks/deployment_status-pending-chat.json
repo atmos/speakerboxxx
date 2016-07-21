@@ -36,6 +36,12 @@
     "ref": "master",
     "task": "deploy",
     "payload": {
+      "notify": {
+        "room": "general",
+        "user": "U0YJYFQ4E",
+        "team_id": "T0YJVLHHA",
+        "user_name": "atmos"
+      },
       "name": "speakerboxxx",
       "pipeline": {
         "id": "189f8d58-cb8b-47e9-a7a0-b9378ef0b865",
