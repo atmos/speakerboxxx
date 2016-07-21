@@ -3,6 +3,7 @@ class WebhookJob < ApplicationJob
   queue_as :default
 
   # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
   def perform(*args)
@@ -34,11 +35,15 @@ class WebhookJob < ApplicationJob
 
       if event_type == "deployment_status" && handler.chat_deployment?
         chat_channel = handler.chat_deployment_room
-        team.bot.chat_postMessage(response) unless chat_channel == channel
+        if chat_channel != channel
+          response[:channel] = chat_channel
+          team.bot.chat_postMessage(response)
+        end
       end
     end
   end
   # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
 end
