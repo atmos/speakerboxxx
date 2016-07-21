@@ -135,7 +135,8 @@ module GitHub::EventMessages
     def chat_deployment_room
       deployment_payload &&
         deployment_payload["notify"] &&
-        deployment_payload["notify"]["room"]
+        deployment_payload["notify"]["room"] &&
+        deployment_payload["notify"]["room"].sub(/^#/, "")
     end
   end
 end
