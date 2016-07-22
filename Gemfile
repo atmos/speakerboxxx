@@ -25,6 +25,7 @@ gem "rbnacl-libsodium", require: "rbnacl/libsodium"
 gem "rollbar"
 gem "sass-rails", "~> 5.0"
 gem "sidekiq"
+gem "sinatra", "2.0.0.pre.alpha"
 gem "slack-ruby-client"
 gem "uglifier", ">= 1.3.0"
 
