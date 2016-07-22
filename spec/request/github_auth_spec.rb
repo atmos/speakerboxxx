@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Speakerboxxx GET /auth/github/callback", type: :request do
-  it "creates the username and login on the authenticated user when successful" do
+  it "creates the GitHub login on the authenticated user when successful" do
     token = "xoxp-9101111159-5657146422-59735495733-3186a13efg"
     stub_json_request(:get,
                       "https://slack.com/api/users.identity?token=#{token}",
@@ -22,7 +22,7 @@ RSpec.describe "Speakerboxxx GET /auth/github/callback", type: :request do
       expect(uri.path).to eql("/auth/slack/callback")
       follow_redirect!
     end.to change { SlackHQ::Team.count }.by(0)
-    
+
     expect do
       get "/auth/github"
       expect(status).to eql(302)
