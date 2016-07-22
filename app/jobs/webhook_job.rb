@@ -34,9 +34,9 @@ class WebhookJob < ApplicationJob
       team.bot.chat_postMessage(response)
 
       if event_type == "deployment_status" && handler.chat_deployment?
-        chat_channel = handler.chat_deployment_room
+        chat_channel = "##{handler.chat_deployment_room}"
         if chat_channel != channel
-          response[:channel] = "##{chat_channel}"
+          response[:channel] = chat_channel
           team.bot.chat_postMessage(response)
         end
       end
