@@ -4,10 +4,10 @@ class SessionsController < ApplicationController
 
   def create_github
     user = SlackHQ::User.find(session[:user_id])
-    user.github_login = omniauth_info["info"]["login"]
+    user.github_login = omniauth_info["info"]["nickname"]
     user.github_token = omniauth_info["credentials"]["token"]
-
     user.save
+
     redirect_to "/"
   rescue ActiveRecord::RecordNotFound
     redirect_to "/auth/slack?origin=#{omniauth_origin}"

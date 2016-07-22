@@ -17,6 +17,23 @@ module OmniAuthHelpers
                            credentials: credentials)
   end
 
+  def github_omniauth_hash_for_toolskai
+    user_info = {
+      name: "Tools Helper",
+      nickname: "toolskai",
+      avatar_url: "https://avatars.githubusercontent.com/u/9364088?v=3"
+    }
+
+    credentials = {
+      token: SecureRandom.hex(24)
+    }
+
+    OmniAuth::AuthHash.new(provider: "github",
+                           uid: "38",
+                           info: user_info,
+                           credentials: credentials)
+  end
+
   # rubocop:disable Metrics/MethodLength
   def slack_omniauth_hash_for_atmos
     info = {
