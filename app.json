@@ -13,6 +13,9 @@
     "heroku-postgresql:standard-0"
   ],
   "env": {
+    "GITHUB_ADMIN_LOGINS": {
+      "description": "A comma delimited list of GitHub logins that can access sidekiq-web"
+    },
     "GITHUB_OAUTH_ID": {
       "description": "The GitHub OAuth client id for being an OAuth consumer"
     },

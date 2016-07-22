@@ -1,3 +1,5 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   mount Peek::Railtie => "/peek"
 
@@ -17,6 +19,8 @@ Rails.application.routes.draw do
   post "/webhooks/:team_id/github/:org_name", to: "webhooks#create"
 
   post "/commands", to: "commands#create"
+
+  mount Sidekiq::Web => "/sidekiq", constraints: AdminConstraint.new
 
   root to: "pages#index"
 end
