@@ -82,5 +82,22 @@ RSpec.describe GitHub::EventMessages::DeploymentStatus, type: :model do
     expect(attachments.first[:fallback])
       .to eql("atmos is deploying speakerboxxx/master to production.")
   end
+
+  it "displays the deployment status description if no target_url is present" do
+    data = decoded_fixture_data("webhooks/deployment_status-missing-target-url")
+
+    handler = GitHub::EventMessages::DeploymentStatus.new(data)
+    expect(handler).to_not be_chat_deployment
+    expect(handler.chat_deployment_room).to be_nil
+    response = handler.response
+    expect(response).to_not be_nil
+    expect(response[:channel]).to eql("#notifications")
+    attachments = response[:attachments]
+    expect(attachments.first[:color]).to eql("#f00")
+    expect(attachments.first[:text])
+      .to eql("<https://github.com/atmos|atmos>'s production deployment of <https://github.com/atmos-org/speakerboxxx/tree/923821e5|speakerboxxx/master> failed. You need to add yubikey or authy tokens to the end of this request. It requires 2fa. 31s")
+    expect(attachments.first[:fallback])
+      .to eql("atmos's production deployment of speakerboxxx/master failed. 31s")
+  end
 end
 # rubocop:enable Metrics/LineLength
