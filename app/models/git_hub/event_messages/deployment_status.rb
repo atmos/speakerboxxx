@@ -34,6 +34,10 @@ module GitHub::EventMessages
       end
     end
 
+    def description
+      deployment_status["description"]
+    end
+
     def target_url
       deployment_status["target_url"]
     end
@@ -67,7 +71,11 @@ module GitHub::EventMessages
     end
 
     def environment_url
-      "<#{target_url}|#{environment}>"
+      if target_url.nil?
+        environment
+      else
+        "<#{target_url}|#{environment}>"
+      end
     end
 
     def duration
@@ -95,8 +103,13 @@ module GitHub::EventMessages
         "#{author_url}'s #{environment_url} deployment of " \
           "#{repo_with_branch_url} was successful. #{duration}s"
       else
-        "#{author_url}'s #{environment_url} deployment of " \
-          "#{repo_with_branch_url} failed. #{duration}s"
+        if target_url.nil?
+          "#{author_url}'s #{environment_url} deployment of " \
+            "#{repo_with_branch_url} failed. #{description} #{duration}s"
+        else
+          "#{author_url}'s #{environment_url} deployment of " \
+            "#{repo_with_branch_url} failed. #{duration}s"
+        end
       end
     end
 
