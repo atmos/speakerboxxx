@@ -1,5 +1,6 @@
 module GitHub::EventMessages
   # Class to generate Slack Messages based on a GitHub DeploymentStatus Webhook
+  # rubocop:disable Metrics/ClassLength
   class DeploymentStatus
     attr_accessor :body
     def initialize(body)
@@ -103,13 +104,17 @@ module GitHub::EventMessages
         "#{author_url}'s #{environment_url} deployment of " \
           "#{repo_with_branch_url} was successful. #{duration}s"
       else
-        if target_url.nil?
-          "#{author_url}'s #{environment_url} deployment of " \
-            "#{repo_with_branch_url} failed. #{description} #{duration}s"
-        else
-          "#{author_url}'s #{environment_url} deployment of " \
-            "#{repo_with_branch_url} failed. #{duration}s"
-        end
+        failure_message_text
+      end
+    end
+
+    def failure_message_text
+      if target_url.nil?
+        "#{author_url}'s #{environment_url} deployment of " \
+          "#{repo_with_branch_url} failed. #{description} #{duration}s"
+      else
+        "#{author_url}'s #{environment_url} deployment of " \
+          "#{repo_with_branch_url} failed. #{duration}s"
       end
     end
 
@@ -152,4 +157,5 @@ module GitHub::EventMessages
         deployment_payload["notify"]["room"].sub(/^#/, "")
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end
