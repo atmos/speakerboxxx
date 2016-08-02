@@ -30,7 +30,7 @@ module GitHub::EventMessages
       if short_sha == branch
         short_sha
       else
-        "#{branch}@#{short_sha}"
+        branch
       end
     end
 
@@ -86,18 +86,22 @@ module GitHub::EventMessages
       when "web-flow"
         ""
       else
-        " on behalf of #{actor}"
+        " for #{actor}"
       end
+    end
+
+    def changeling_description
+      body["description"].gsub("All requirements completed. ", "")
     end
 
     def footer_text
       case body["context"]
       when "ci/circleci"
-        "circle-ci#{actor_description}"
+        "circle-ci built #{short_sha}#{actor_description}"
       when "continuous-integration/travis-ci/push"
-        "Travis-CI#{actor_description}"
+        "Travis-CI built #{short_sha}#{actor_description}"
       when "heroku/compliance"
-        "Changeling: #{body['description']}"
+        "Changeling: #{changeling_description}"
       else
         "Unknown"
       end
