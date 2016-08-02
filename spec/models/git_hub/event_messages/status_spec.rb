@@ -24,7 +24,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     fields = attachments.first[:fields]
     expect(fields).to be_nil
 
-    expect(attachments.first[:footer]).to eql("Travis-CI built 7dcf6ad3 for atmos")
+    expect(attachments.first[:footer]).to eql("Travis-CI built 7dcf6ad3 for atmos") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:footer_icon]).to eql("https://cdn.travis-ci.com/images/logos/TravisCI-Mascot-grey-ab1429c891b31bb91d29cc0b5a9758de.png") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:mrkdwn_in]).to eql([:text, :pretext])
   end
@@ -44,7 +44,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     fields = attachments.first[:fields]
     expect(fields).to be_nil
 
-    expect(attachments.first[:footer]).to eql("Travis-CI built 89bfabcc for atmos")
+    expect(attachments.first[:footer]).to eql("Travis-CI built 89bfabcc for atmos") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:footer_icon]).to eql("https://cdn.travis-ci.com/images/logos/TravisCI-Mascot-grey-ab1429c891b31bb91d29cc0b5a9758de.png") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:mrkdwn_in]).to eql([:text, :pretext])
   end
@@ -66,7 +66,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     fields = attachments.first[:fields]
     expect(fields).to be_nil
 
-    expect(attachments.first[:footer]).to eql("circle-ci built a2df354c")
+    expect(attachments.first[:footer]).to eql("circle-ci built a2df354c") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:footer_icon]).to eql("https://cloud.githubusercontent.com/assets/38/16295346/2b121e26-38db-11e6-9c4f-ee905519fdf3.png") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:mrkdwn_in]).to eql([:text, :pretext])
   end
@@ -87,7 +87,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     fields = attachments.first[:fields]
     expect(fields).to be_nil
 
-    expect(attachments.first[:footer]).to eql("circle-ci built a2df354c")
+    expect(attachments.first[:footer]).to eql("circle-ci built a2df354c") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:footer_icon]).to eql("https://cloud.githubusercontent.com/assets/38/16295346/2b121e26-38db-11e6-9c4f-ee905519fdf3.png") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:mrkdwn_in]).to eql([:text, :pretext])
   end
