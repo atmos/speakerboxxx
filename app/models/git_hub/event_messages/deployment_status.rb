@@ -1,6 +1,5 @@
 module GitHub::EventMessages
   # Class to generate Slack Messages based on a GitHub DeploymentStatus Webhook
-  # rubocop:disable Metrics/ClassLength
   class DeploymentStatus
     attr_accessor :body
     def initialize(body)
@@ -157,5 +156,4 @@ module GitHub::EventMessages
         deployment_payload["notify"]["room"].sub(/^#/, "")
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end
