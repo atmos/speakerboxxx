@@ -227,8 +227,6 @@ GEM
     rbnacl-libsodium (1.0.10)
       rbnacl (>= 3.0.1)
     redis (3.3.0)
-    rollbar (2.12.0)
-      multi_json
     rspec-core (3.5.0)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -264,6 +262,8 @@ GEM
     sawyer (0.7.0)
       addressable (>= 2.3.5, < 2.5)
       faraday (~> 0.8, < 0.10)
+    sentry-raven (1.2.2)
+      faraday (>= 0.7.6, < 0.10.x)
     sidekiq (4.1.2)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -332,10 +332,10 @@ DEPENDENCIES
   rails (>= 5.0.0.1, < 5.1)
   rake (= 11.2.2)
   rbnacl-libsodium
-  rollbar
   rspec-rails (= 3.5.0)
   rubocop
   sass-rails (~> 5.0)
+  sentry-raven
   sidekiq
   sinatra (= 2.0.0.pre.alpha)
   slack-ruby-client
