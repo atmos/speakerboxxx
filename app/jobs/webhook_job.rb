@@ -2,6 +2,14 @@
 class WebhookJob < ApplicationJob
   queue_as :default
 
+  def post_back(team, response)
+    begin
+      team.bot.chat_postMessage(response)
+    rescue Slack::Web::Api::Error
+      nil
+    end
+  end
+
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity
@@ -31,13 +39,13 @@ class WebhookJob < ApplicationJob
       channel  = org.default_room_for(handler.repo_name)
 
       response[:channel] = channel
-      team.bot.chat_postMessage(response)
+      post_back(team, response)
 
       if event_type == "deployment_status" && handler.chat_deployment?
         chat_channel = "##{handler.chat_deployment_room}"
         if chat_channel != channel && chat_channel != "#privategroup"
           response[:channel] = chat_channel
-          team.bot.chat_postMessage(response)
+          post_back(team, response)
         end
       end
     end
