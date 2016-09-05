@@ -3,11 +3,9 @@ class WebhookJob < ApplicationJob
   queue_as :default
 
   def post_back(team, response)
-    begin
-      team.bot.chat_postMessage(response)
-    rescue Slack::Web::Api::Error
-      nil
-    end
+    team.bot.chat_postMessage(response)
+  rescue Slack::Web::Api::Error
+    nil
   end
 
   # rubocop:disable Metrics/AbcSize
