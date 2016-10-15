@@ -102,6 +102,8 @@ module GitHub::EventMessages
         "Travis-CI built #{short_sha}#{actor_description}"
       when "heroku/compliance"
         "Changeling: #{changeling_description}"
+      when "continuous-integration/heroku"
+        "Heroku-CI built #{short_sha}#{actor_description}"
       else
         "Unknown"
       end
@@ -114,7 +116,7 @@ module GitHub::EventMessages
         "https://cloud.githubusercontent.com/assets/38/16295346/2b121e26-38db-11e6-9c4f-ee905519fdf3.png"
       when "continuous-integration/travis-ci/push"
         "https://cdn.travis-ci.com/images/logos/TravisCI-Mascot-grey-ab1429c891b31bb91d29cc0b5a9758de.png"
-      when "heroku/compliance"
+      when "heroku/compliance", "continuous-integration/heroku"
         "https://cloud.githubusercontent.com/assets/38/16531791/ebc00ff4-3f82-11e6-919b-693a5cf9183a.png"
       when "vulnerabilities/gems"
         "https://cloud.githubusercontent.com/assets/38/16547100/e23b670e-4116-11e6-8b38-bac1b4c853f0.jpg"

@@ -1,9 +1,10 @@
 module GitHub::EventMessages
   # Class to generate Slack Messages based on an known GitHub Webhook
   class Unknown
-    attr_accessor :body, :event_type
+    attr_accessor :body, :event_type, :repo_name
     def initialize(body, event_type)
       @body       = body
+      @repo_name  = nil
       @event_type = event_type
     end
 

@@ -5,6 +5,6 @@ RSpec.describe "Speakerboxxx /health", type: :request do
     get "/health"
     data = JSON.parse(body)
     expect(status).to eql(200)
-    expect(data["name"]).to eql("speakerboxxx/the-love-below")
+    expect(data["name"]).to eql("speakerboxxx")
   end
 end

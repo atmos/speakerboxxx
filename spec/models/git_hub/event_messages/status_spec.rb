@@ -133,4 +133,25 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     expect(attachments.first[:footer_icon]).to eql("https://cloud.githubusercontent.com/assets/38/16531791/ebc00ff4-3f82-11e6-919b-693a5cf9183a.png") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:mrkdwn_in]).to eql([:text, :pretext])
   end
+
+  it "returns a Slack message for fork repos without branch references" do
+    data = decoded_fixture_data("webhooks/status-heroku-success")
+
+    handler = GitHub::EventMessages::Status.new(data)
+    response = handler.response
+    expect(response).to_not be_nil
+    expect(response[:channel]).to eql("#notifications")
+    expect(response[:text]).to be_nil
+    attachments = response[:attachments]
+    expect(attachments.first[:fallback]).to_not be_nil
+    expect(attachments.first[:color]).to eql("#36a64f")
+    expect(attachments.first[:text]).to eql("<https://github.com/atmos-org/speakerboxxx|speakerboxxx> build of <https://github.com/atmos-org/speakerboxxx/tree/master|master> was successful. <https://dashboard.heroku.com/pipelines/fe14109b-9876-4a51-c421-9e263bad16b3/tests/10|Details>") # rubocop:disable Metrics/LineLength
+
+    fields = attachments.first[:fields]
+    expect(fields).to be_nil
+
+    expect(attachments.first[:footer]).to eql("Heroku-CI built 7dcf6ad3 for atmos") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:footer_icon]).to eql("https://cloud.githubusercontent.com/assets/38/16531791/ebc00ff4-3f82-11e6-919b-693a5cf9183a.png") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:mrkdwn_in]).to eql([:text, :pretext])
+  end
 end
