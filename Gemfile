@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "2.3.1"
 
 gem "addressable", require: "addressable/uri"
-gem "coal_car", "~> 0.1"
+gem "coal_car", "~> 0.2"
 gem "coffee-rails", "~> 4.1.0"
 gem "compass-rails"
 gem "jquery-rails"

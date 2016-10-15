@@ -67,7 +67,11 @@ module GitHub::EventMessages
     end
 
     def environment
-      deployment["environment"]
+      result = deployment["environment"]
+      if deployment_payload && deployment_payload["name"]
+        result += "/#{deployment_payload['name']}"
+      end
+      result
     end
 
     def environment_url
@@ -94,11 +98,22 @@ module GitHub::EventMessages
       end
     end
 
+    def deployment_action
+      case body["deployment_status"]["description"]
+      when /Running release phase/
+        "releasing"
+      when /Release phase completed/
+        "restarting"
+      else
+        "deploying"
+      end
+    end
+
     def message_text
       case body["deployment_status"]["state"]
       when "pending"
-        "#{author_url} is deploying #{repo_with_branch_url} to " \
-          "#{environment_url}."
+        "#{author_url} is #{deployment_action} #{repo_with_branch_url} to " \
+          "#{environment_url}. #{duration}s"
       when "success"
         "#{author_url}'s #{environment_url} deployment of " \
           "#{repo_with_branch_url} was successful. #{duration}s"
@@ -117,10 +132,12 @@ module GitHub::EventMessages
       end
     end
 
+    # rubocop:disable Metrics/AbcSize
     def fallback_text
       case body["deployment_status"]["state"]
       when "pending"
-        "#{author} is deploying #{repo_with_branch} to #{environment}."
+        "#{author} is #{deployment_action} #{repo_with_branch} to " \
+          "#{environment}. #{duration}s"
       when "success"
         "#{author}'s #{environment} deployment of #{repo_with_branch}" \
          " was successful. #{duration}s"
@@ -129,6 +146,7 @@ module GitHub::EventMessages
          " failed. #{duration}s"
       end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def response
       return if environment =~ /pr-\d+$/

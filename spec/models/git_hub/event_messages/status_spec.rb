@@ -25,7 +25,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     expect(fields).to be_nil
 
     expect(attachments.first[:footer]).to eql("Travis-CI built 7dcf6ad3 for atmos") # rubocop:disable Metrics/LineLength
-    expect(attachments.first[:footer_icon]).to eql("https://cdn.travis-ci.com/images/logos/TravisCI-Mascot-grey-ab1429c891b31bb91d29cc0b5a9758de.png") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:footer_icon]).to eql("https://cloud.githubusercontent.com/assets/483012/22075201/56ed65da-ddab-11e6-954c-2636206bf6a4.png") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:mrkdwn_in]).to eql([:text, :pretext])
   end
 
@@ -45,7 +45,7 @@ RSpec.describe GitHub::EventMessages::Status, type: :model do
     expect(fields).to be_nil
 
     expect(attachments.first[:footer]).to eql("Travis-CI built 89bfabcc for atmos") # rubocop:disable Metrics/LineLength
-    expect(attachments.first[:footer_icon]).to eql("https://cdn.travis-ci.com/images/logos/TravisCI-Mascot-grey-ab1429c891b31bb91d29cc0b5a9758de.png") # rubocop:disable Metrics/LineLength
+    expect(attachments.first[:footer_icon]).to eql("https://cloud.githubusercontent.com/assets/483012/22075201/56ed65da-ddab-11e6-954c-2636206bf6a4.png") # rubocop:disable Metrics/LineLength
     expect(attachments.first[:mrkdwn_in]).to eql([:text, :pretext])
   end
 

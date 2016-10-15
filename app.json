@@ -30,11 +30,11 @@
       "description": "The FQDN that the server is running at"
     },
     "RACK_ENV": {
-      "description": "The rack environment used to differentiate production from staging in rollbar",
+      "description": "The rack environment used to differentiate production from staging",
       "default": "production"
     },
     "RAILS_ENV": {
-      "description": "The rails environment used to differentiate production from staging in rollbar",
+      "description": "The rails environment used to differentiate production from staging",
       "default": "production"
     },
     "RAILS_SERVE_STATIC_FILES": {
@@ -43,9 +43,6 @@
     },
     "RBNACL_SECRET": {
       "description": "The secret used for writing encrypted values to the database"
-    },
-    "ROLLBAR_ACCESS_TOKEN": {
-      "description": "Rollbar api token to submit errors"
     },
     "SECRET_KEY_BASE": {
       "description": "The session secret used to encrypt and sign session cookies",
