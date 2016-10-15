@@ -2,6 +2,13 @@
 class WebhookJob < ApplicationJob
   queue_as :default
 
+  def post_back(team, response)
+    team.bot.chat_postMessage(response)
+  rescue Slack::Web::Api::Error
+    Rails.logger.info "Unable to route #{team.domain}: #{response.inspect}"
+    nil
+  end
+
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
@@ -30,13 +37,13 @@ class WebhookJob < ApplicationJob
     channel  = org.default_room_for(handler.repo_name)
 
     response[:channel] = channel
-    team.bot.chat_postMessage(response)
+    post_back(team, response)
 
     return unless event_type == "deployment_status" && handler.chat_deployment?
     chat_channel = "##{handler.chat_deployment_room}"
     return unless chat_channel != channel && chat_channel != "#privategroup"
     response[:channel] = chat_channel
-    team.bot.chat_postMessage(response)
+    post_back(team, response)
   end
   # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
