@@ -1,3 +1,5 @@
+require "sidekiq/web"
+
 Rails.application.routes.draw do
   mount Peek::Railtie => "/peek"
 
@@ -8,9 +10,7 @@ Rails.application.routes.draw do
 
   post "/signout",  to: "sessions#destroy"
 
-  get "/health",   to: "application#health"
   get "/install",  to: "application#install"
-  get "/boomtown", to: "application#boomtown"
 
   get "/support",  to: "pages#support"
 
@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   post "/buttons",  to: "buttons#create"
   post "/commands", to: "commands#create"
+
+  mount Sidekiq::Web => "/sidekiq", constraints: AdminConstraint.new
 
   root to: "pages#index"
 end

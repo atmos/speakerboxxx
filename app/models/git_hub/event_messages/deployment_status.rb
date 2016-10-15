@@ -14,16 +14,32 @@ module GitHub::EventMessages
       body["repository"]["full_name"]
     end
 
+    def deployment
+      body["deployment"]
+    end
+
+    def deployment_payload
+      body["deployment"]["payload"]
+    end
+
+    def deployment_status
+      body["deployment_status"]
+    end
+
     def branch
-      if body["deployment"]["ref"] == body["deployment"]["sha"]
+      if deployment["ref"] == deployment["sha"]
         short_sha
       else
-        body["deployment"]["ref"]
+        deployment["ref"]
       end
     end
 
+    def description
+      deployment_status["description"]
+    end
+
     def target_url
-      body["deployment_status"]["target_url"]
+      deployment_status["target_url"]
     end
 
     def sha_url
@@ -39,11 +55,11 @@ module GitHub::EventMessages
     end
 
     def short_sha
-      body["deployment"]["sha"][0..7]
+      deployment["sha"][0..7]
     end
 
     def author
-      body["deployment"]["creator"]["login"]
+      deployment["creator"]["login"]
     end
 
     def author_url
@@ -51,16 +67,20 @@ module GitHub::EventMessages
     end
 
     def environment
-      body["deployment"]["environment"]
+      deployment["environment"]
     end
 
     def environment_url
-      "<#{target_url}|#{environment}>"
+      if target_url.nil?
+        environment
+      else
+        "<#{target_url}|#{environment}>"
+      end
     end
 
     def duration
-      (Time.zone.parse(body["deployment_status"]["created_at"]) -
-        Time.zone.parse(body["deployment"]["created_at"])).round
+      (Time.zone.parse(deployment_status["created_at"]) -
+        Time.zone.parse(deployment["created_at"])).round
     end
 
     def message_color
@@ -82,6 +102,15 @@ module GitHub::EventMessages
       when "success"
         "#{author_url}'s #{environment_url} deployment of " \
           "#{repo_with_branch_url} was successful. #{duration}s"
+      else
+        failure_message_text
+      end
+    end
+
+    def failure_message_text
+      if target_url.nil?
+        "#{author_url}'s #{environment_url} deployment of " \
+          "#{repo_with_branch_url} failed. #{description} #{duration}s"
       else
         "#{author_url}'s #{environment_url} deployment of " \
           "#{repo_with_branch_url} failed. #{duration}s"
@@ -114,6 +143,17 @@ module GitHub::EventMessages
           }
         ]
       }
+    end
+
+    def chat_deployment?
+      !chat_deployment_room.nil?
+    end
+
+    def chat_deployment_room
+      deployment_payload &&
+        deployment_payload["notify"] &&
+        deployment_payload["notify"]["room"] &&
+        deployment_payload["notify"]["room"].sub(/^#/, "")
     end
   end
 end

@@ -30,7 +30,7 @@ module GitHub::EventMessages
       if short_sha == branch
         short_sha
       else
-        "#{branch}@#{short_sha}"
+        branch
       end
     end
 
@@ -86,41 +86,57 @@ module GitHub::EventMessages
       when "web-flow"
         ""
       else
-        " on behalf of #{actor}"
+        " for #{actor}"
       end
+    end
+
+    def changeling_description
+      body["description"].gsub("All requirements completed. ", "")
     end
 
     def footer_text
       case body["context"]
       when "ci/circleci"
-        "circle-ci#{actor_description}"
+        "circle-ci built #{short_sha}#{actor_description}"
       when "continuous-integration/travis-ci/push"
-        "Travis-CI#{actor_description}"
+        "Travis-CI built #{short_sha}#{actor_description}"
       when "heroku/compliance"
-        "Changeling: #{body['description']}"
+        "Changeling: #{changeling_description}"
+      when "continuous-integration/heroku"
+        "Heroku-CI built #{short_sha}#{actor_description}"
       else
         "Unknown"
       end
     end
 
+    # rubocop:disable Metrics/LineLength
     def footer_icon
       case body["context"]
       when "ci/circleci"
-        "https://cloud.githubusercontent.com/assets/38/16295346/2b121e26-38db-11e6-9c4f-ee905519fdf3.png" # rubocop:disable Metrics/LineLength
+        "https://cloud.githubusercontent.com/assets/38/16295346/2b121e26-38db-11e6-9c4f-ee905519fdf3.png"
       when "continuous-integration/travis-ci/push"
-        "https://cdn.travis-ci.com/images/logos/TravisCI-Mascot-grey-ab1429c891b31bb91d29cc0b5a9758de.png" # rubocop:disable Metrics/LineLength
-      when "heroku/compliance"
-        "https://cloud.githubusercontent.com/assets/38/16531791/ebc00ff4-3f82-11e6-919b-693a5cf9183a.png" # rubocop:disable Metrics/LineLength
+        "https://cdn.travis-ci.com/images/logos/TravisCI-Mascot-grey-ab1429c891b31bb91d29cc0b5a9758de.png"
+      when "heroku/compliance", "continuous-integration/heroku"
+        "https://cloud.githubusercontent.com/assets/38/16531791/ebc00ff4-3f82-11e6-919b-693a5cf9183a.png"
       when "vulnerabilities/gems"
-        "https://cloud.githubusercontent.com/assets/38/16547100/e23b670e-4116-11e6-8b38-bac1b4c853f0.jpg" # rubocop:disable Metrics/LineLength
+        "https://cloud.githubusercontent.com/assets/38/16547100/e23b670e-4116-11e6-8b38-bac1b4c853f0.jpg"
       end
     end
+    # rubocop:enable Metrics/LineLength
 
     def suppressed_contexts
       %w{codeclimate continuous-integration/travis-ci/pr vulnerabilities/gems}
     end
 
-    # rubocop:disable Metrics/AbcSize
+    def attachment_text
+      "<#{repo_url}|#{repo_name}> build of <#{branch_url}|#{branch_ref}> " \
+        "#{state_description}. <#{target_url}|Details>"
+    end
+
+    def fallback_text
+      "#{repo_name} build of #{branch} was #{state_description}"
+    end
+
     def response
       return if body["state"] == "pending"
       return if suppressed_contexts.include?(body["context"])
@@ -128,9 +144,9 @@ module GitHub::EventMessages
         channel: "#notifications",
         attachments: [
           {
-            fallback: "#{full_name} build of #{branch} was #{state_description}", # rubocop:disable Metrics/LineLength
+            fallback: fallback_text,
             color: message_color,
-            text: "<#{repo_url}|#{full_name}> build of <#{branch_url}|#{branch_ref}> #{state_description}. <#{target_url}|Details>", # rubocop:disable Metrics/LineLength
+            text: attachment_text,
             footer: footer_text,
             footer_icon: footer_icon,
             mrkdwn_in: [:text, :pretext]
@@ -138,6 +154,5 @@ module GitHub::EventMessages
         ]
       }
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end
