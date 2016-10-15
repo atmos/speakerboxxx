@@ -2,8 +2,8 @@
 module GitHub::EventMessages
   def self.suppressed_actions
     %w{commit_comment deployment fork issues issue_comment \
-       member membership pull_request_review_comment release repository \
-       team_add watch}
+       member membership pull_request_review pull_request_review_comment \
+       release repository team_add watch}
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity

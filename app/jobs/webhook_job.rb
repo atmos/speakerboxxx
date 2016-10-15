@@ -5,11 +5,11 @@ class WebhookJob < ApplicationJob
   def post_back(team, response)
     team.bot.chat_postMessage(response)
   rescue Slack::Web::Api::Error
+    Rails.logger.info "Unable to route #{team.domain}: #{response.inspect}"
     nil
   end
 
   # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity
   # rubocop:disable Metrics/PerceivedComplexity
   def perform(*args)
@@ -31,25 +31,21 @@ class WebhookJob < ApplicationJob
       end
     end
 
-    handler = GitHub::EventMessages.handler_for(event_type, JSON.load(body))
-    if handler && handler.response
-      response = handler.response
-      channel  = org.default_room_for(handler.repo_name)
+    handler = GitHub::EventMessages.handler_for(event_type, JSON.parse(body))
+    return unless handler && handler.response
+    response = handler.response
+    channel  = org.default_room_for(handler.repo_name)
 
-      response[:channel] = channel
-      post_back(team, response)
+    response[:channel] = channel
+    post_back(team, response)
 
-      if event_type == "deployment_status" && handler.chat_deployment?
-        chat_channel = "##{handler.chat_deployment_room}"
-        if chat_channel != channel && chat_channel != "#privategroup"
-          response[:channel] = chat_channel
-          post_back(team, response)
-        end
-      end
-    end
+    return unless event_type == "deployment_status" && handler.chat_deployment?
+    chat_channel = "##{handler.chat_deployment_room}"
+    return unless chat_channel != channel && chat_channel != "#privategroup"
+    response[:channel] = chat_channel
+    post_back(team, response)
   end
   # rubocop:enable Metrics/PerceivedComplexity
   # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
 end

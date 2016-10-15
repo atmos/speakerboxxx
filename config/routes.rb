@@ -10,9 +10,7 @@ Rails.application.routes.draw do
 
   post "/signout",  to: "sessions#destroy"
 
-  get "/health",   to: "application#health"
   get "/install",  to: "application#install"
-  get "/boomtown", to: "application#boomtown"
 
   get "/support",  to: "pages#support"
 
