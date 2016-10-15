@@ -5,7 +5,7 @@ class WebhookJob < ApplicationJob
   def post_back(team, response)
     team.bot.chat_postMessage(response)
   rescue Slack::Web::Api::Error
-    Rails.logger.info "Unable to route #{team.domain}: #{response.inspect}"
+    Rails.logger.info "Unable to route #{team.team_id}: #{response.inspect}"
     nil
   end
 
