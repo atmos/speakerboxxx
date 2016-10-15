@@ -45,10 +45,9 @@ class Command < ApplicationRecord
 
   def notify_user_of_success!
     user = User.find_by(slack_user_id: slack_user_id)
-    if user
-      name = "<@#{user.slack_user_id}|#{user.slack_user_name}>"
-      postback_message(text_response("#{name} you're all set. :tada:"))
-    end
+    return unless user
+    name = "<@#{user.slack_user_id}|#{user.slack_user_name}>"
+    postback_message(text_response("#{name} you're all set. :tada:"))
   end
 
   def default_response

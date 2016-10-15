@@ -74,10 +74,9 @@ module OrganizationHelpers
   end
 
   def organization_webhook_view_url
-    if org_hook
-      "https://github.com/organizations/#{organization_name}/" \
-        "settings/hooks/#{org_hook.id}"
-    end
+    return unless org_hook
+    "https://github.com/organizations/#{organization_name}/" \
+      "settings/hooks/#{org_hook.id}"
   end
 
   def organization_webhook_url

@@ -10,7 +10,7 @@ class SlackHQ::User < ApplicationRecord
     token = omniauth_info[:credentials][:token]
     response = slack_client.get("/api/users.identity?token=#{token}")
 
-    JSON.load(response.body)
+    JSON.parse(response.body)
   end
 
   def self.from_omniauth(omniauth_info)

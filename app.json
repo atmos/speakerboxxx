@@ -13,6 +13,10 @@
     "heroku-postgresql:standard-0"
   ],
   "env": {
+    "APP_NAME": {
+      "description": "The application name reported from the /health endpoint",
+      "value": "speakerboxxx"
+    },
     "GITHUB_ADMIN_LOGINS": {
       "description": "A comma delimited list of GitHub logins that can access sidekiq-web"
     },
