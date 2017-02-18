@@ -61,9 +61,31 @@ module Commands
     def disable_subtask
       if org_hooks?
         if remove_organization_hook
-          @response = response_for(
-            "#{organization_name} webhooks are disabled."
-          )
+          @response = {
+            text: "Really disable #{organization_name} webhooks?",
+            attachments: [
+              {
+                fallback: "You are unable to approve this",
+                callback_id: "disable_org",
+                color: "#3AA3E3",
+                attachment_type: "default",
+                actions: [
+                  {
+                    name: "disable",
+                    text: "Disable",
+                    type: "button",
+                    value: "disable",
+                    confirm: {
+                      title: "Are you sure?",
+                      text: "Wouldn't you prefer to leave it enabled?",
+                      ok_text: "Yes",
+                      dismiss_text: "No"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
         else
           @response = response_for(
             "Problem removing #{organization_name}'s webhooks."

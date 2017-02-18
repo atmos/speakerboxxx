@@ -8,6 +8,10 @@ module GitHub::EventMessages
       @event_type = event_type
     end
 
+    def repo_name
+      nil
+    end
+
     def title
       "#{event_type} :smiley:"
     end

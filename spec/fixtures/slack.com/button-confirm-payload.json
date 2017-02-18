@@ -1,0 +1,26 @@
+{
+  "actions": [
+    {
+      "name": "disable",
+      "value": "disable"
+    }
+  ],
+  "callback_id": "disable_org",
+  "team": {
+    "id": "T123YG08V",
+    "domain": "atmos-dot-org"
+  },
+  "channel": {
+    "id": "C99NNAY74",
+    "name": "notifications"
+  },
+  "user": {
+    "id": "U123YG08X",
+    "name": "atmos"
+  },
+  "action_ts": "1468732928.247782",
+  "message_ts": "1468732905.000010",
+  "attachment_id": "1",
+  "token": "secret-slack-token",
+  "response_url": "https://hooks.slack.com/actions/T123YG08V/60479499937/Gmdc123456789LANKcrRFWa2"
+}

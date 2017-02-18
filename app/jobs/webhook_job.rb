@@ -55,6 +55,9 @@ class WebhookJob < ApplicationJob
     return if team.nil?
 
     org_name = args.first.fetch(:org_name)
+
+    return if team.nil?
+
     org = team.organizations.find_by(name: org_name)
 
     body         = args.first.fetch(:body)
